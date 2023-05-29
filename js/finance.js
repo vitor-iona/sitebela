@@ -120,8 +120,8 @@ class Finance {
 
     updateBalance() {
         const finance = this;
-        document.getElementById('incomeDisplay').innerHTML = finance.formatCurrency(finance.incomes());
-        document.getElementById('expenseDisplay').innerHTML = finance.formatCurrency(finance.expenses());
+        //document.getElementById('incomeDisplay').innerHTML = finance.formatCurrency(finance.incomes());
+        //document.getElementById('expenseDisplay').innerHTML = finance.formatCurrency(finance.expenses());
         //document.getElementById('totalDisplay').innerHTML = finance.formatCurrency(finance.total());
     }
 
@@ -383,6 +383,15 @@ class Finance {
     `;
 
         tbody.innerHTML = tbodyContent;
+
+        // Valor a prazo
+        var Total = AcabamentoPrice * selectedLargura;
+        Total = Total + (TecidoConvertido * priceTecido);
+        Total = Total + priceForroFinal;
+        Total = Total + (priceBK * BKConvertido);
+        document.getElementById('incomeDisplay').innerHTML = Total;
+
+        document.getElementById('expenseDisplay').innerHTML = Total - ((Total * 10) / 100);
     }
 
     submitEdit(event) {
