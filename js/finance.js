@@ -233,9 +233,9 @@ class Finance {
             TecidoConvertido = TecidoConvertido / 2.80;
 
             var resposta2 = prompt("A conversão deu: " + TecidoConvertido + "<br> Deseja inverter para quanto?");
-            
-            if(resposta2 == 0)
-            alert("Ocorreu um erro. Por favor, tente novamente.");
+
+            if (resposta2 == 0)
+                alert("Ocorreu um erro. Por favor, tente novamente.");
 
 
             var TecidoAltura = parseFloat(selectedAltura) + 0.40;
@@ -251,15 +251,73 @@ class Finance {
 
         // Seleciona o Forro
         var selectedForro = document.getElementById("ForroName").value;
-        if(selectedForro == "Microfibra"){
-            var priceForro = 19;            
+        if (selectedForro == "Microfibra") {
+            var priceForro = 19;
         }
 
         var priceForroFinal = priceForro * TecidoConvertido;
 
         // Seleciona o Blackout
         var selectedBK = document.getElementById("BlackoutEscolhido").value;
-        console.log(selectedBK);
+        if (selectedBK == "SemBk") {
+            var priceBK = 0;
+        }
+        if (selectedBK == "Blackout 100%") {
+            var priceBK = 72;
+        }
+        if (selectedBK == "Blackout 70%") {
+            var priceBK = 58;
+        }
+        if (selectedBK == "Blackout PVC") {
+            var priceBK = 27;
+        }
+
+        var resposta3 = confirm("Você deseja inverter o Blackout?");
+
+        if (resposta3) {
+            var ConvetBlackout = 1;
+        } else {
+            var ConvetBlackout = 0;
+        }
+
+        // Converter o BK
+        if (ConvetBlackout == 1) {
+
+            if (selectedBK == "Blackout PVC") {
+
+                var BKConvertido = parseFloat(selectedLargura) + 1
+                BKConvertido = BKConvertido / 1.80;
+
+                var resposta3 = prompt("A conversão deu: " + BKConvertido + "<br> Deseja inverter para quanto?");
+
+                if (resposta3 == 0)
+                    alert("Ocorreu um erro. Por favor, tente novamente.");
+
+                var BKAltura = parseFloat(selectedAltura) + 0.20;
+                BKConvertido = resposta3 * BKAltura;
+            }
+
+            
+            if (selectedBK == "Blackout 100%" || selectedBK == "Blackout 70%") {
+
+                var BKConvertido = parseFloat(selectedLargura) + 1
+                BKConvertido = BKConvertido / 2.80;
+
+                var resposta3 = prompt("A conversão deu: " + BKConvertido + "<br> Deseja inverter para quanto?");
+
+                if (resposta3 == 0)
+                    alert("Ocorreu um erro. Por favor, tente novamente.");
+
+                var BKAltura = parseFloat(selectedAltura) + 0.20;
+                BKConvertido = resposta3 * BKAltura;
+            }
+        }
+
+        // Nâo Converter BK
+        if (ConvetBlackout == 0) {
+            var TecidoConvertido = selectedLargura * 3
+        }
+
 
         // Seleciona se é Separado ou Junto
         var AcabamentoBK = document.getElementById("BkJuntoSeparado").value;
@@ -313,6 +371,13 @@ class Finance {
     <td>${ConvertDecimal(priceForro)}</td>
     <td>${TecidoConvertido}</td>
     <td>${ConvertDecimal(priceForroFinal)}</td>
+    </tr>
+
+    <tr>
+    <td>${selectedBK}</td>
+    <td>${ConvertDecimal(priceBK)}</td>
+    <td>${BKConvertido}</td>
+    <td>${ConvertDecimal(priceBK * BKConvertido)}</td>
     </tr>
     
     `;
