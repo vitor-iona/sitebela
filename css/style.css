@@ -1,6 +1,20 @@
 /* Variáveis para se usar no css */
 :root {
-    --background-header: #2D4A22;
+       --background-header: #212529;
+    --background-body-modal: #2e3135;
+    --background-card-table: rgb(69, 53, 128);
+    --background-green: #315723;
+    --letter-h2-card: #fff;
+    --letter-data-table: #fff;
+    --td-description: #fff;
+    --td-income: #3dd705;
+    --footer: #9ca2b9;
+    --letter-help: #f0f2f5;
+    --red-app: #f00b0b;
+}
+
+.dark-mode:root {
+ --background-header: #2D4A22;
     --background-body-modal: #f0f2f5;
     --background-card-table: #fff;
     --background-green: #49aa26;
@@ -13,20 +27,6 @@
     --td-income: #12a454;
     --red-app: #e92929;
     --green-hover: #3dd705;
-}
-
-.dark-mode:root {
-    --background-header: #212529;
-    --background-body-modal: #2e3135;
-    --background-card-table: rgb(69, 53, 128);
-    --background-green: #315723;
-    --letter-h2-card: #fff;
-    --letter-data-table: #fff;
-    --td-description: #fff;
-    --td-income: #3dd705;
-    --footer: #9ca2b9;
-    --letter-help: #f0f2f5;
-    --red-app: #f00b0b;
 }
 
 /* Global */
