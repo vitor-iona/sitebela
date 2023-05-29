@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 id="logo">Orçamento de Cortinas</h1>
+        <div class="side">
+            <label for="dark-mode">Tema Escuro</label>
+            <input type="checkbox" name="dark-mode" id="dark-mode">
+        </div>
+    </header>
+    <main class="container">
+        <section id="balance">
+            <h2 class="sr-only">Balanço</h2>
+            <div class="card">
+                <h3>
+                    <span>Valor a prazo:</span>
+                    <img src="images/income.svg" alt="Imagem de Entrada">
+                </h3>
+                <p id="incomeDisplay"></p>
+            </div>
+            <div class="card">
+                <h3>
+                    <span>Valor a vista:</span>
+                    <img src="images/total.svg" alt="Imagem do Saldo">
+                </h3>
+                <p id="expenseDisplay"></p>
+            </div>
+           <div class="card total">
+                <h3>
+                    <span>Informações:</span>
+                    <img src="images/expense.svg" alt="Imagem de Saídas">
+                </h3>
+                <span id="totalDisplay"></span>
+            </div>
+        </section>
+
+
+
+        <section id="transaction">
+            <h2 class="sr-only">Transações</h2>
+            <a href="#" class="button new" onclick="finance.toggleModal()">+ Novo Orçamento</a>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor (MT)</th>
+                        <th>Metragem</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionBody"></tbody>
+            </table>
+        </section>
+    </main>
+    
+    <!-- Button de Adicionar -->
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="form">
+                <h2>Novo Orçamento</h2>
+                <form action="" method="GET" onsubmit="finance.submit(event)">
+                   
+                    <div class="input-group">
+                        <small class="help">Informe a Altura:</small>
+                        <label class="sr-only" for="amount">Valor</label>
+                        <input type="number" step="0.01" id="decimalInputAltura" name="decimalInput" placeholder="Informe a Altura">
+                    </div>
+
+                    <div class="input-group">
+                        <small class="help">Informe a Largura:</small>
+                        <label class="sr-only" for="amount">Valor</label>
+                        <input type="number" step="0.01" id="decimalInputLargura" name="decimalInput" placeholder="Informe a Largura">
+                    </div>
+                   
+                    <div class="input-group">
+                        <small class="help">Selecione uma opção de Tecido:</small>
+                        <label class="sr-only" for="description">Descrição</label>
+
+                        <select id="TecidoName" name="description" placeholder="Descrição">
+                            <option value="Linho Voil Flame">LINHO VOIL FLAME</option>
+                            <option value="Linho Rustico">LINHO RUSTICO</option>
+                            <option value="Voil Suico">VOIL SUIÇO</option>
+                            <option value="Voil Liso">VOIL LISO</option>
+                            <option value="Glace">GLACÊ</option>
+                          </select>                          
+                    </div>
+
+                    <div class="input-group">
+                        <small class="help">Selecione uma opção de Forro:</small>
+                        <label class="sr-only" for="amount">Descrição</label>
+
+                        <select id="ForroName" name="description" placeholder="Descrição">
+                            <option value="Microfibra">MICROFIBRA</option>
+                          </select>                          
+                    </div>
+
+                    <div class="input-group">
+                        <small class="help">Selecione uma opção de Acabamento:</small>
+                        <label class="sr-only" for="date">Descrição</label>
+
+                        <select id="AcabamentoName" name="description" placeholder="Descrição">
+                            <option value="Bastão 19">BASTÃO SUIÇO 19MM</option>
+                            <option value="Bastao 28">BASTÃO SUIÇO 28MM</option>
+                            <option value="Trilho">TRILHO SUIÇO</option>
+                          </select>                          
+                    </div>
+
+                    <div class="input-group">
+                        <small class="help">Selecione uma opção de Blackout:</small>
+                        <label class="sr-only" for="date">Descrição</label>
+
+                        <select id="BlackoutEscolhido" name="description" placeholder="Descrição">
+                            <option value="SemBk">SEM BLACKOUT</option>
+                            <option value="Bk100">BLACKOUT TECIDO 100%</option>
+                            <option value="Bk70">BLACKOUT TECIDO 70%</option>
+                            <option value="BkPvc">BLACKOUT PVC</option>
+                          </select>                          
+                    </div>
+
+                    <div class="input-group">
+                        <small class="help">Selecione uma opção:</small>
+                        <label class="sr-only" for="date">Descrição</label>
+
+                        <select id="BkJuntoSeparado" name="description" placeholder="Descrição">
+                            <option value="SemBk">SEM BLACKOUT</option>
+                            <option value="BkSeparado">BLACKOUT SEPARADO</option>
+                            <option value="BkJunto">BLACKOUT COSTURADO JUNTO</option>                           
+                          </select>                          
+                    </div>
+                    
+                    <div class="input-group actions">
+                        <a href="#" class="button cancel" onclick="finance.toggleModal()">Cancelar</a>
+                        <button type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
+    
+    
+    <div id="modalEdit" class="modal-overlay">
+        <div class="modal">
+            <div class="form">
+                <h2>Editar Transação</h2>
+                <form action="" method="GET" onsubmit="finance.submitEdit(event)">
+                    <div class="input-group">
+                        <label class="sr-only" for="description">Descrição</label>
+                        <input type="text" id="descriptionEdit" name="descriptionEdit" placeholder="Descrição">
+                    </div>
+                    <div class="input-group">
+                        <label class="sr-only" for="amount">Valor</label>
+                        <input type="text" name="amountEdit" id="amountEdit" step="0.01" placeholder="0,00">
+                        <small class="help">Use o sinal - (negativo) para despesas.</small>
+                    </div>
+                    <div class="input-group">
+                        <label class="sr-only" for="date">Data</label>
+                        <input type="date" name="dateEdit" id="dateEdit">
+                    </div>
+                    <div class="input-group actions">
+                        <a href="#" class="button cancel" onclick="finance.toggleModalEdit()">Cancelar</a>
+                        <button type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; Vitor Ionã</p>
+    </footer>
+    <script src="js/finance.js"></script>
+    <script src="js/dark-mode.js"></script>
+    <script src="js/maskCurrency.js"></script>
+</body>
+
+</html>
