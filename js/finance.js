@@ -259,6 +259,7 @@ class Finance {
 
         // Seleciona o Blackout
         var selectedBK = document.getElementById("BlackoutEscolhido").value;
+
         if (selectedBK == "SemBk") {
             var priceBK = 0;
         }
@@ -272,13 +273,18 @@ class Finance {
             var priceBK = 27;
         }
 
-        var resposta3 = confirm("Você deseja inverter o Blackout?");
+        if (selectedBK != "SemBk") {
 
-        if (resposta3) {
-            var ConvetBlackout = 1;
-        } else {
-            var ConvetBlackout = 0;
+            var resposta3 = confirm("Você deseja inverter o Blackout?");
+
+            if (resposta3) {
+                var ConvetBlackout = 1;
+            } else {
+                var ConvetBlackout = 0;
+            }
         }
+
+        var BKConvertido = 0;
 
         // Converter o BK
         if (ConvetBlackout == 1) {
@@ -297,7 +303,7 @@ class Finance {
                 BKConvertido = resposta3 * BKAltura;
             }
 
-            
+
             if (selectedBK == "Blackout 100%" || selectedBK == "Blackout 70%") {
 
                 var BKConvertido = parseFloat(selectedLargura) + 1
@@ -315,33 +321,90 @@ class Finance {
 
         // Nâo Converter BK
         if (ConvetBlackout == 0) {
-            var TecidoConvertido = selectedLargura * 3
+            var BKConvertido = parseFloat(selectedLargura) + 1;
         }
 
 
-        // Seleciona se é Separado ou Junto
+        // Seleciona se é Separado ou Junto e o terminal
         var AcabamentoBK = document.getElementById("BkJuntoSeparado").value;
-        var LarguraAcabamento;
+        var QntPonteiraTerminal = 2;
+        var PriceTerminal = 2.00;
+        var PriceCostureira = 42.00;
 
-        if (AcabamentoBK == "BkSeparado")
+        if (AcabamentoBK == "BkSeparado") {
             AcabamentoBK = selectedLargura * 2;
+            QntPonteiraTerminal = 4;
+            PriceCostureira = 70.00;
+        }
 
         if (AcabamentoBK == "SemBk")
-            AcabamentoBK = 0;
+            AcabamentoBK = selectedLargura;
 
         if (AcabamentoBK == "BkJunto")
             AcabamentoBK = selectedLargura;
 
         // Seleciona o Acabamento
         var selectedAcabamento = document.getElementById("AcabamentoName").value;
-        if (selectedAcabamento = "Trilho")
+
+        if (selectedAcabamento == "Trilho") {
             var AcabamentoPrice = 18;
+            var NameAcabamento = "Terminal"
+        }
 
-        if (selectedAcabamento = "Bastao 28")
+        if (selectedAcabamento == "Bastao 28") {
             var AcabamentoPrice = 25;
+            var NameAcabamento = "Ponteira";
 
-        if (selectedAcabamento = "Bastão 19")
+            var nomeSuporte = "Suporte";
+            var PriceSuporte = 22;
+
+            if (selectedLargura < 2)
+                var QntSuporte = 2;
+
+            if (selectedLargura > 2)
+                var QntSuporte = Math.round(selectedLargura);
+
+            if (AcabamentoBK == "BkSeparado") {
+                QntSuporte = QntSuporte * 2;
+            }
+        }
+
+        if (selectedAcabamento == "Bastão 19") {
             var AcabamentoPrice = 22;
+            var NameAcabamento = "Ponteira";
+
+            var nomeSuporte = "Suporte";
+            var PriceSuporte = 22;
+
+            if (selectedLargura < 2)
+                var QntSuporte = 2;
+
+            if (selectedLargura > 2)
+                var QntSuporte = Math.round(selectedLargura);
+
+            if (AcabamentoBK == "BkSeparado") {
+                QntSuporte = QntSuporte * 2;
+            }
+        }
+
+        // Calcula o Rodizio
+
+        var PriceRodizio = 0.35;
+        var QntRodizio = TecidoConvertido + BKConvertido;
+        QntRodizio = QntRodizio / 0.12;
+        //QntRodizio = QntRodizio * PriceRodizio;
+
+        // Calcula Entretela
+        var PriceEntretela = 4.00;
+        var QntEntretela = TecidoConvertido;
+
+        // Calcular Instalação
+
+        var PriceInstalação = 50.00;
+
+        if (selectedLargura > 4.00) {
+            PriceInstalação = 150.00
+        }
 
         //Parte das Informações
         document.getElementById('totalDisplay').innerHTML = "Altura: " + selectedAltura + "<br> Largura: " + selectedLargura + "<br> Acabamento: " + selectedAcabamento;
@@ -359,6 +422,13 @@ class Finance {
     <td>${ConvertDecimal(AcabamentoPrice * selectedLargura)}</td>
     </tr>
 
+    <tr id="nome-suporte">
+    <td>${nomeSuporte}</td>
+    <td>${PriceSuporte}</td>
+    <td>${QntSuporte}</td>
+    <td>${ConvertDecimal(QntSuporte * PriceSuporte)}</td>
+    </tr>
+
     <tr>
     <td>${selectedTecido}</td>
     <td>${ConvertDecimal(priceTecido)}</td>
@@ -373,25 +443,87 @@ class Finance {
     <td>${ConvertDecimal(priceForroFinal)}</td>
     </tr>
 
-    <tr>
+    <tr id="Select-BK">
     <td>${selectedBK}</td>
     <td>${ConvertDecimal(priceBK)}</td>
     <td>${BKConvertido}</td>
     <td>${ConvertDecimal(priceBK * BKConvertido)}</td>
+    </tr>
+
+    <tr>
+    <td>Rodizio</td>
+    <td>${ConvertDecimal(PriceRodizio)}</td>
+    <td>${QntRodizio}</td>
+    <td>${ConvertDecimal(QntRodizio * PriceRodizio)}</td>
+    </tr>
+
+    <td>Entretela</td>
+    <td>${ConvertDecimal(PriceEntretela)}</td>
+    <td>${QntEntretela}</td>
+    <td>${ConvertDecimal(QntEntretela * PriceEntretela)}</td>
+    </tr>
+
+    <td>${NameAcabamento}</td>
+    <td>${ConvertDecimal(PriceTerminal)}</td>
+    <td>${QntPonteiraTerminal}</td>
+    <td>${ConvertDecimal(QntPonteiraTerminal * PriceTerminal)}</td>
+    </tr>
+
+    <td>Instalação</td>
+    <td>${ConvertDecimal(PriceInstalação)}</td>
+    <td>1</td>
+    <td>${ConvertDecimal(PriceInstalação)}</td>
+    </tr>
+
+    <td>Costureira</td>
+    <td>${ConvertDecimal(PriceCostureira)}</td>
+    <td>1</td>
+    <td>${ConvertDecimal(PriceCostureira * selectedLargura)}</td>
     </tr>
     
     `;
 
         tbody.innerHTML = tbodyContent;
 
+        if (selectedAcabamento == "Trilho") {
+            // Obtém a referência para a linha <tr> que deseja ocultar
+            var linha = document.getElementById('nome-suporte');
+
+            // Define a propriedade de estilo display como 'none' para ocultar a linha
+            linha.style.display = 'none';
+        }
+
+        if (selectedBK == "SemBk") {
+            // Obtém a referência para a linha <tr> que deseja ocultar
+            var linha = document.getElementById('Select-BK');
+
+            // Define a propriedade de estilo display como 'none' para ocultar a linha
+            linha.style.display = 'none';
+        }
+
         // Valor a prazo
         var Total = AcabamentoPrice * selectedLargura;
         Total = Total + (TecidoConvertido * priceTecido);
         Total = Total + priceForroFinal;
-        Total = Total + (priceBK * BKConvertido);
-        document.getElementById('incomeDisplay').innerHTML = Total;
+        
+        if (selectedBK == "SemBk") {
+            Total = Total + (priceBK * BKConvertido);
+        }
+        
+        Total = Total + (QntRodizio * PriceRodizio);
+        Total = Total + (QntEntretela * PriceEntretela);
+        Total = Total + (QntPonteiraTerminal * PriceTerminal);
+        Total = Total + PriceInstalação;
+        Total = Total + (PriceCostureira * selectedLargura);
+        
+        if (selectedAcabamento != "Trilho") {
+            Total = Total + (QntSuporte * PriceSuporte);
+        }
 
-        document.getElementById('expenseDisplay').innerHTML = Total - ((Total * 10) / 100);
+        document.getElementById('incomeDisplay').innerHTML = Total.toFixed(2);
+
+        var TotalComDesconto = Total - ((Total * 10) / 100);
+        document.getElementById('expenseDisplay').innerHTML = TotalComDesconto.toFixed(2);
     }
 
     submitEdit(event) {
