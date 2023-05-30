@@ -376,7 +376,7 @@ class Finance {
             var nomeSuporte = "Suporte";
             var PriceSuporte = 22;
 
-            if (selectedLargura < 2)
+            if (selectedLargura <= 2)
                 var QntSuporte = 2;
 
             if (selectedLargura > 2)
@@ -505,17 +505,17 @@ class Finance {
         var Total = AcabamentoPrice * selectedLargura;
         Total = Total + (TecidoConvertido * priceTecido);
         Total = Total + priceForroFinal;
-        
+
         if (selectedBK == "SemBk") {
             Total = Total + (priceBK * BKConvertido);
         }
-        
+
         Total = Total + (QntRodizio * PriceRodizio);
         Total = Total + (QntEntretela * PriceEntretela);
         Total = Total + (QntPonteiraTerminal * PriceTerminal);
         Total = Total + PriceInstalação;
         Total = Total + (PriceCostureira * selectedLargura);
-        
+
         if (selectedAcabamento != "Trilho") {
             Total = Total + (QntSuporte * PriceSuporte);
         }
@@ -524,6 +524,10 @@ class Finance {
 
         var TotalComDesconto = Total - ((Total * 10) / 100);
         document.getElementById('expenseDisplay').innerHTML = TotalComDesconto.toFixed(2);
+
+        var modalOverlay = document.querySelector('.modal-overlay');
+        modalOverlay.style.display = 'none';
+
     }
 
     submitEdit(event) {
