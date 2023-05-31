@@ -330,18 +330,20 @@ class Finance {
         var QntPonteiraTerminal = 2;
         var PriceTerminal = 2.00;
         var PriceCostureira = 42.00;
+        var QntdeTrilhoBastao;
 
         if (AcabamentoBK == "BkSeparado") {
-            AcabamentoBK = selectedLargura * 2;
+
+            QntdeTrilhoBastao = selectedLargura * 2;
             QntPonteiraTerminal = 4;
             PriceCostureira = 70.00;
         }
 
         if (AcabamentoBK == "SemBk")
-            AcabamentoBK = selectedLargura;
+        QntdeTrilhoBastao = selectedLargura;
 
         if (AcabamentoBK == "BkJunto")
-            AcabamentoBK = selectedLargura;
+        QntdeTrilhoBastao = selectedLargura;
 
         // Seleciona o Acabamento
         var selectedAcabamento = document.getElementById("AcabamentoName").value;
@@ -418,8 +420,8 @@ class Finance {
         <tr>
     <td>${selectedAcabamento}</td>
     <td>${ConvertDecimal(AcabamentoPrice)}</td>
-    <td>${AcabamentoBK}</td>
-    <td>${ConvertDecimal(AcabamentoPrice * AcabamentoBK)}</td>
+    <td>${QntdeTrilhoBastao}</td>
+    <td>${ConvertDecimal(AcabamentoPrice * QntdeTrilhoBastao)}</td>
     </tr>
 
     <tr id="nome-suporte">
@@ -446,7 +448,7 @@ class Finance {
     <tr id="Select-BK">
     <td>${selectedBK}</td>
     <td>${ConvertDecimal(priceBK)}</td>
-    <td>${BKConvertido}</td>
+    <td>${ConvertDecimal(BKConvertido)}</td>
     <td>${ConvertDecimal(priceBK * BKConvertido)}</td>
     </tr>
 
@@ -502,7 +504,7 @@ class Finance {
         }
 
         // Valor a prazo
-        var Total = AcabamentoPrice * AcabamentoBK;
+        var Total = AcabamentoPrice * QntdeTrilhoBastao;
         Total = Total + (TecidoConvertido * priceTecido);
         Total = Total + priceForroFinal;
 
