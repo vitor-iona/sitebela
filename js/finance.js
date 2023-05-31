@@ -336,7 +336,7 @@ class Finance {
 
             QntdeTrilhoBastao = selectedLargura * 2;
             QntPonteiraTerminal = 4;
-            PriceCostureira = 70.00;
+            PriceCostureira = 60.00;
         }
 
         if (AcabamentoBK == "SemBk")
@@ -409,7 +409,7 @@ class Finance {
         }
 
         //Parte das Informações
-        document.getElementById('totalDisplay').innerHTML = "Altura: " + selectedAltura + "<br> Largura: " + selectedLargura + "<br> Acabamento: " + selectedAcabamento;
+        document.getElementById('totalDisplay').innerHTML = "Altura: " + selectedAltura + "<br> Largura: " + selectedLargura;
 
 
         // Tabela de orçamento
@@ -508,7 +508,7 @@ class Finance {
         Total = Total + (TecidoConvertido * priceTecido);
         Total = Total + priceForroFinal;
 
-        if (selectedBK == "SemBk") {
+        if (selectedBK != "SemBk") {
             Total = Total + (priceBK * BKConvertido);
         }
 
@@ -527,8 +527,7 @@ class Finance {
         var TotalComDesconto = Total - ((Total * 10) / 100);
         document.getElementById('expenseDisplay').innerHTML = TotalComDesconto.toFixed(2);
 
-        var modalOverlay = document.querySelector('.modal-overlay');
-        modalOverlay.style.display = 'none';
+        finance.modal.toggle('active');
 
     }
 
