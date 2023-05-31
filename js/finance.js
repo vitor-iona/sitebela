@@ -292,7 +292,7 @@ class Finance {
             if (selectedBK == "Blackout PVC") {
 
                 var BKConvertido = parseFloat(selectedLargura) + 1
-                BKConvertido = BKConvertido / 1.80;
+                BKConvertido = BKConvertido / 1.40;
 
                 var resposta3 = prompt("A conversão deu: " + BKConvertido + "<br> Deseja inverter para quanto?");
 
@@ -419,7 +419,7 @@ class Finance {
     <td>${selectedAcabamento}</td>
     <td>${ConvertDecimal(AcabamentoPrice)}</td>
     <td>${AcabamentoBK}</td>
-    <td>${ConvertDecimal(AcabamentoPrice * selectedLargura)}</td>
+    <td>${ConvertDecimal(AcabamentoPrice * AcabamentoBK)}</td>
     </tr>
 
     <tr id="nome-suporte">
@@ -453,7 +453,7 @@ class Finance {
     <tr>
     <td>Rodizio</td>
     <td>${ConvertDecimal(PriceRodizio)}</td>
-    <td>${QntRodizio}</td>
+    <td>${ConvertDecimal(QntRodizio)}</td>
     <td>${ConvertDecimal(QntRodizio * PriceRodizio)}</td>
     </tr>
 
@@ -502,7 +502,7 @@ class Finance {
         }
 
         // Valor a prazo
-        var Total = AcabamentoPrice * selectedLargura;
+        var Total = AcabamentoPrice * AcabamentoBK;
         Total = Total + (TecidoConvertido * priceTecido);
         Total = Total + priceForroFinal;
 
